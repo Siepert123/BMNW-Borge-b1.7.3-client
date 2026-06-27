@@ -7,6 +7,7 @@ import dev.siepert.nuclearprogram.world.item.ItemBlockMetalOre;
 import dev.siepert.nuclearprogram.world.item.ItemBlockWorkbench;
 import net.minecraft.src.Block;
 import net.minecraft.src.Item;
+import net.minecraft.src.Material;
 import net.minecraftborge.loader.event.register.IdAllocationEvent;
 
 import java.util.function.IntFunction;
@@ -16,6 +17,8 @@ public class BlockInit {
 
 	public static BlockMetalOre oreMetal;
 	public static BlockMetal blockMetal;
+	public static BlockFireclay fireclay;
+	public static Block firebricks;
 	public static BlockWorkbench workbench;
 	public static BlockFurnaceBuilder furnaceBuilderIdle;
 	public static BlockFurnaceBuilder furnaceBuilderLit;
@@ -37,6 +40,18 @@ public class BlockInit {
 				.setHardness(Block.blockIron.getHardness())
 				.setResistance(Block.blockIron.getExplosionResistance(null))
 				.setStepSound(Block.soundMetalFootstep)
+		);
+		fireclay = helper.register("fireclay", id -> new BlockFireclay(id)
+				.setHarvestLevel("shovel", 0)
+				.setHardness(Block.blockClay.getHardness())
+				.setResistance(Block.blockClay.getExplosionResistance(null))
+				.setStepSound(Block.soundGravelFootstep)
+		);
+		firebricks = helper.register("firebricks", id -> new Block(id, Material.rock)
+				.setHarvestLevel("pickaxe", 0)
+				.setHardness(Block.brick.getHardness())
+				.setResistance(Block.brick.getExplosionResistance(null))
+				.setStepSound(Block.soundStoneFootstep)
 		);
 		workbench = helper.register("workbench", BlockWorkbench::new);
 		furnaceBuilderIdle = helper.register("furnaceBuilder", id -> new BlockFurnaceBuilder(id, false)

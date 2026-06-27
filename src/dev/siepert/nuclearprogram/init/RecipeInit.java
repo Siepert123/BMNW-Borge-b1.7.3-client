@@ -98,6 +98,15 @@ public class RecipeInit {
 		);
 		//endregion
 
+		recipes.addShapedRecipe(new ItemStack(BlockInit.fireclay, 1),
+				"##", "##",
+				'#', ItemInit.ballFireclay
+		);
+		recipes.addShapedRecipe(new ItemStack(BlockInit.firebricks, 1),
+				"##", "##",
+				'#', ItemInit.firebrick
+		);
+
 		recipes.addShapedRecipe(new ItemStack(BlockInit.workbench, 1, BlockWorkbench.IRON),
 				"#X#", "#C#", "###",
 				'#', Ingredient.of("ingotIron"),
@@ -118,6 +127,7 @@ public class RecipeInit {
 	}
 
 	public static void furnace(FurnaceRecipesFix recipes) {
+		recipes.addSmelting(ItemInit.ballFireclay.shiftedIndex, new ItemStack(ItemInit.firebrick, 1));
 		recipes.addSmelting(ItemInit.potato.shiftedIndex, new ItemStack(ItemInit.potatoCooked, 1));
 	}
 
@@ -141,6 +151,6 @@ public class RecipeInit {
 	}
 
 	public static void builderFurnace(BuilderFurnaceRecipes recipes) {
-
+		recipes.addSmelting(ItemInit.ballFireclay.shiftedIndex, 0, new ItemStack(ItemInit.firebrick, 1), 50);
 	}
 }

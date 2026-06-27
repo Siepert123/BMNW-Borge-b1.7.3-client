@@ -18,21 +18,25 @@ public class ItemInit {
 	public static Item ingotElectrum;
 	public static Item ingotKaupium;
 	public static Item ingotYanoizedKaupium;
+	public static Item ballFireclay;
+	public static Item firebrick;
 	public static ItemConsumableSeeds potato;
 	public static ItemFood potatoCooked;
 
 	public static void register(IdAllocationEvent<Item> event) {
 		Helper helper = new Helper(NuclearProgram.MODID, event);
 
-		ingotCopper = helper.register("ingotCopper", Item::new);
-		ingotAluminium = helper.register("ingotAluminium", Item::new);
-		ingotLead = helper.register("ingotLead", Item::new);
-		ingotTitanium = helper.register("ingotTitanium", Item::new);
-		ingotTungsten = helper.register("ingotTungsten", Item::new);
-		ingotSteel = helper.register("ingotSteel", Item::new);
-		ingotElectrum = helper.register("ingotElectrum", Item::new);
-		ingotKaupium = helper.register("ingotKaupium", Item::new);
-		ingotYanoizedKaupium = helper.register("ingotYanoizedKaupium", Item::new);
+		ingotCopper = helper.register("ingotCopper");
+		ingotAluminium = helper.register("ingotAluminium");
+		ingotLead = helper.register("ingotLead");
+		ingotTitanium = helper.register("ingotTitanium");
+		ingotTungsten = helper.register("ingotTungsten");
+		ingotSteel = helper.register("ingotSteel");
+		ingotElectrum = helper.register("ingotElectrum");
+		ingotKaupium = helper.register("ingotKaupium");
+		ingotYanoizedKaupium = helper.register("ingotYanoizedKaupium");
+		ballFireclay = helper.register("ballFireclay");
+		firebrick = helper.register("firebrick");
 		potato = helper.register("potato", id -> new ItemConsumableSeeds(id, BlockInit.potatoes.blockID, 1, false));
 		potatoCooked = helper.register("potatoCooked", id -> new ItemFood(id, 4, false)
 				.setMaxStackSize(64));
@@ -51,6 +55,9 @@ public class ItemInit {
 			T item = (T) this.event.createWithFreeId(sup);
 			item.setItemName(this.modid + "/" + name);
 			return item;
+		}
+		public Item register(String name) {
+			return this.register(name, Item::new);
 		}
 	}
 }

@@ -36,6 +36,7 @@ public class NuclearProgram implements IModLifecycleListener {
 
 		TagInit.registerBlockTags();
 		TagInit.registerItemTags();
+		WorldGenInit.register();
 		EntityInit.register();
 	}
 
