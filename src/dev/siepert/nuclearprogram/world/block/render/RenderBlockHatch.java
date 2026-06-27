@@ -1,5 +1,6 @@
 package dev.siepert.nuclearprogram.world.block.render;
 
+import dev.siepert.nuclearprogram.util.SingletonBlockAccess;
 import net.minecraft.src.Block;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.RenderBlocks;
@@ -24,15 +25,23 @@ public class RenderBlockHatch implements BlockRenderType {
 
 	@Override
 	public void renderOnInventory(Block block, int metadata, float brightness, RenderBlocks renderer) {
-		GL11.glTranslatef(-0.5F, 0.0F, -0.5F);
+		GL11.glPushMatrix();
+		GL11.glTranslatef(-0.5F, -1.5F/16.0F, -0.5F);
 		Tessellator tes = Tessellator.instance;
 		Icon texture = block.blockTexture;
 		tes.startDrawingQuads();
 		tes.setColorOpaque_F(brightness, brightness, brightness);
 		this.renderLid(block, tes, renderer, texture);
-		this.renderValve(block, tes, renderer, texture);
 		tes.draw();
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+		GL11.glRotatef(22.5F, 0.0F, 1.0F, 0.0F);
+		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+		tes.startDrawingQuads();
+		tes.setColorOpaque_F(brightness, brightness, brightness);
+		this.renderValve(block, tes, renderer, texture);
+		tes.draw();
+		GL11.glPopMatrix();
+		block.setBlockBoundsBasedOnState(SingletonBlockAccess.get(block.blockID, metadata), 0, 0, 0);
 	}
 
 	public void renderFaces(RenderBlocks renderer, Tessellator tes, Block block, double x, double y, double z, Icon texture) {
@@ -72,6 +81,16 @@ public class RenderBlockHatch implements BlockRenderType {
 		this.renderFaces(renderer, tes, block, 0, 0, 0, texture);
 		block.setBlockBounds(p*0, p*0, p*14, p*16, p*2, p*16);
 		this.renderFaces(renderer, tes, block, 0, 0, 0, texture);
+
+		tes.setTranslationD(0.0, -0.5/16.0, -0.5/16.0);
+		this.renderFaces(
+				renderer, tes, block, texture,
+				p*1, p*0, p*0, p*3, p*1, p*1
+		);
+		this.renderFaces(
+				renderer, tes, block, texture,
+				p*13, p*0, p*0, p*15, p*1, p*1
+		);
 	}
 
 	public void renderValve(Block block, Tessellator tes, RenderBlocks renderer, Icon texture) {

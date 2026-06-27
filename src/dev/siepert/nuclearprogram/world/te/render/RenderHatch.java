@@ -2,6 +2,7 @@ package dev.siepert.nuclearprogram.world.te.render;
 
 import dev.siepert.nuclearprogram.init.BlockInit;
 import dev.siepert.nuclearprogram.util.Easing;
+import dev.siepert.nuclearprogram.util.SingletonBlockAccess;
 import dev.siepert.nuclearprogram.world.block.render.RenderBlockHatch;
 import dev.siepert.nuclearprogram.world.te.TileEntityHatch;
 import net.minecraft.src.*;
@@ -63,5 +64,6 @@ public class RenderHatch extends TileEntitySpecialRenderer<TileEntityHatch> {
 		instance.renderValve(BlockInit.hatch, tes, renderer, this.texture);
 		tes.draw();
 		GL11.glPopMatrix();
+		BlockInit.hatch.setBlockBoundsBasedOnState(SingletonBlockAccess.or(this.worldObj, BlockInit.hatch.blockID, 0), te.xCoord, te.yCoord, te.zCoord);
 	}
 }
