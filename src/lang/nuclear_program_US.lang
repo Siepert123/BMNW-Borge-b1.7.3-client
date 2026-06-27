@@ -1,4 +1,8 @@
 
+tile.nuclear_program/oreCopper.name=Copper Ore
+tile.nuclear_program/oreLead.name=Lead Ore
+tile.nuclear_program/oreTitanium.name=Titanium Ore
+tile.nuclear_program/oreTungsten.name=Tungsten Ore
 tile.nuclear_program/blockCopper.name=Block of Copper
 tile.nuclear_program/blockAluminium.name=Block of Aluminium
 tile.nuclear_program/blockLead.name=Block of Lead
@@ -8,6 +12,8 @@ tile.nuclear_program/blockSteel.name=Block of Steel
 tile.nuclear_program/blockElectrum.name=Block of Electrum
 tile.nuclear_program/blockKaupium.name=Block of Kaupium
 tile.nuclear_program/blockYanoizedKaupium.name=Block of Yanoized Kaupium
+tile.nuclear_program/fireclay.name=Fireclay
+tile.nuclear_program/firebricks.name=Firebricks
 tile.nuclear_program/workbenchIron.name=Iron Workbench
 tile.nuclear_program/workbenchSteel.name=Steel Workbench
 tile.nuclear_program/furnaceBuilder.name=Builder's Furnace
@@ -32,6 +38,7 @@ tile.nuclear_program/concreteLightBlue.name=Light Blue Concrete
 tile.nuclear_program/concreteMagenta.name=Magenta Concrete
 tile.nuclear_program/concreteOrange.name=Orange Concrete
 tile.nuclear_program/concreteWhite.name=White Concrete
+tile.nuclear_program/hatch.name=Sealed Hatch
 
 item.nuclear_program/ingotCopper.name=Copper Ingot
 item.nuclear_program/ingotAluminium.name=Aluminium Ingot
@@ -42,5 +49,7 @@ item.nuclear_program/ingotSteel.name=Steel Ingot
 item.nuclear_program/ingotElectrum.name=Electrum Ingot
 item.nuclear_program/ingotKaupium.name=Kaupium Ingot
 item.nuclear_program/ingotYanoizedKaupium.name=Yanoized Kaupium Ingot
+item.nuclear_program/ballFireclay.name=Fireclay
+item.nuclear_program/firebrick.name=Firebrick
 item.nuclear_program/potato.name=Potato
 item.nuclear_program/potatoCooked.name=Baked Potato
