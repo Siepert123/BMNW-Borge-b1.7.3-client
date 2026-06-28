@@ -18,10 +18,18 @@ public class ItemInit {
 	public static Item ingotElectrum;
 	public static Item ingotKaupium;
 	public static Item ingotYanoizedKaupium;
+	public static Item plateCopper;
+	public static Item plateAluminium;
+	public static Item plateLead;
+	public static Item plateTitanium;
+	public static Item plateTungsten;
+	public static Item plateSteel;
 	public static Item ballFireclay;
 	public static Item firebrick;
 	public static ItemConsumableSeeds potato;
 	public static ItemFood potatoCooked;
+
+	public static Item valve;
 
 	public static void register(IdAllocationEvent<Item> event) {
 		Helper helper = new Helper(NuclearProgram.MODID, event);
@@ -35,11 +43,19 @@ public class ItemInit {
 		ingotElectrum = helper.register("ingotElectrum");
 		ingotKaupium = helper.register("ingotKaupium");
 		ingotYanoizedKaupium = helper.register("ingotYanoizedKaupium");
+		plateCopper = helper.register("plateCopper");
+		plateAluminium = helper.register("plateAluminium");
+		plateLead = helper.register("plateLead");
+		plateTitanium = helper.register("plateTitanium");
+		plateTungsten = helper.register("plateTungsten");
+		plateSteel = helper.register("plateSteel");
 		ballFireclay = helper.register("ballFireclay");
 		firebrick = helper.register("firebrick");
 		potato = helper.register("potato", id -> new ItemConsumableSeeds(id, BlockInit.potatoes.blockID, 1, false));
 		potatoCooked = helper.register("potatoCooked", id -> new ItemFood(id, 4, false)
 				.setMaxStackSize(64));
+
+		valve = helper.register("valve");
 	}
 
 	@SuppressWarnings("unchecked")

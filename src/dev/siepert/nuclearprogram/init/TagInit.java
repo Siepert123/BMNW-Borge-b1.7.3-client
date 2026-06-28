@@ -29,5 +29,12 @@ public class TagInit {
 		ItemTags.tag("ingotElectrum", ItemInit.ingotElectrum);
 		ItemTags.tag("ingotKaupium", ItemInit.ingotKaupium);
 		ItemTags.tag("ingotYanoizedKaupium", ItemInit.ingotYanoizedKaupium);
+
+		ItemTags.tag("plateCopper", ItemInit.plateCopper);
+		ItemTags.tag("plateAluminium", ItemInit.plateAluminium);
+		ItemTags.tag("plateLead", ItemInit.plateLead);
+		ItemTags.tag("plateTitanium", ItemInit.plateTitanium);
+		ItemTags.tag("plateTungsten", ItemInit.plateTungsten);
+		ItemTags.tag("plateSteel", ItemInit.plateSteel);
 	}
 }

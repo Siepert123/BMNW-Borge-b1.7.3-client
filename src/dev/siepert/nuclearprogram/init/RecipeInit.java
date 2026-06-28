@@ -138,6 +138,12 @@ public class RecipeInit {
 				'#', Ingredient.of("stone"),
 				'X', Ingredient.of(Block.stairSingle.blockID, 0)
 		);
+
+		recipes.addShapedRecipe(new ItemStack(BlockInit.hatch),
+				" X ", "###", " X ",
+				'#', Ingredient.of("ingotSteel"),
+				'X', ItemInit.valve
+		);
 	}
 
 	public static void furnace(FurnaceRecipesFix recipes) {
@@ -159,6 +165,11 @@ public class RecipeInit {
 				.setResult(new ItemStack(BlockInit.workbench, 1, BlockWorkbench.STEEL))
 				.addIngredient(Ingredient.of(Block.workbench.blockID), 1)
 				.addIngredient(Ingredient.of("ingotSteel"), 10)
+				.build());
+
+		recipes.addRecipe("hbm/valve", WorkbenchRecipe.builder()
+				.setResult(new ItemStack(ItemInit.valve, 1))
+				.addIngredient(Ingredient.of("ingotSteel"), 4)
 				.build());
 
 		recipes.reindex();
