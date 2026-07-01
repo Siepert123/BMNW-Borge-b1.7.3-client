@@ -8,7 +8,7 @@ import net.minecraftborge.loader.FurnaceRecipesFix;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BuilderFurnaceRecipes {
+public final class BuilderFurnaceRecipes {
 	private static final BuilderFurnaceRecipes instance = new BuilderFurnaceRecipes();
 	public static BuilderFurnaceRecipes smelting() {
 		return instance;

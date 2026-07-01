@@ -9,22 +9,22 @@ import dev.siepert.nuclearprogram.texturefx.TextureYanoizedFX;
 import dev.siepert.nuclearprogram.world.block.BlockMetal;
 import dev.siepert.nuclearprogram.world.entity.EntityHowitzerShell;
 import dev.siepert.nuclearprogram.world.entity.render.RenderHowitzerShell;
+import net.minecraft.client.Minecraft;
 import net.minecraftborge.loader.FurnaceRecipesFix;
 import net.minecraftborge.loader.TerrainIcon;
 import net.minecraftborge.loader.event.EventBusSubscriber;
 import net.minecraftborge.loader.event.EventHandler;
 import net.minecraftborge.loader.event.IModLifecycleListener;
 import net.minecraftborge.loader.event.lifecycle.ModInitializationEvent;
-import net.minecraftborge.loader.event.lifecycle.ModPreInitializationEvent;
 import net.minecraftborge.loader.event.misc.ReplaceSimilarBlocksEvent;
 import net.minecraftborge.loader.event.register.*;
 
 @EventBusSubscriber(NuclearProgram.MODID)
 public class NuclearProgram implements IModLifecycleListener {
+	public static final Minecraft mc = Minecraft.getTheMinecraft();
 	public static final String MODID = "nuclear_program";
-
-	@Override
-	public void modPreInit(ModPreInitializationEvent event) {
+	public static String path(String path) {
+		return MODID + "/" + path;
 	}
 
 	@Override
@@ -63,9 +63,9 @@ public class NuclearProgram implements IModLifecycleListener {
 	@EventHandler
 	public static void registerTextureFX(RegisterTextureFXEvent event) {
 		event.register(new TextureYanoizedFX((TerrainIcon) ItemInit.ingotYanoizedKaupium.itemTexture,
-				NuclearProgram.MODID + "/mask_IngotYanoizedKaupium.png", 1.0F));
+				path("mask_IngotYanoizedKaupium.png"), 1.0F));
 		event.register(new TextureYanoizedFX((TerrainIcon) BlockInit.blockMetal.blockTextures[BlockMetal.YANOIZED_KAUPIUM],
-				NuclearProgram.MODID + "/mask_BlockYanoizedKaupium.png", 1.0F));
+				path("mask_BlockYanoizedKaupium.png"), 1.0F));
 	}
 
 	@EventHandler

@@ -113,6 +113,12 @@ public class NuclearProgramWorldAccess implements IWorldAccess {
 					if (te != null) te.setOpen(false);
 				}
 			}
+			if (data == 6) {
+				this.worldObj.playSoundEffect(x, y, z, "weapon.explosionNuclear", 128.0F, 1.0F);
+			}
+			if (data == 7) {
+				this.worldObj.playSoundEffect(x, y, z, "weapon.explosionLarge", 32.0F, 1.0F);
+			}
 		}
 	}
 }

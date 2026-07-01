@@ -4,7 +4,7 @@ import net.minecraftborge.loader.Namespace;
 
 import java.util.*;
 
-public class WorkbenchRecipes {
+public final class WorkbenchRecipes {
 	private static final WorkbenchRecipes instance = new WorkbenchRecipes();
 	public static WorkbenchRecipes crafting() {
 		return instance;

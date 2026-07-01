@@ -5,33 +5,31 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
 import net.minecraft.src.World;
 
+import java.util.Random;
+
 public class BlockYanoDoor extends BlockDoor {
 	public BlockYanoDoor(int blockID, Material material) {
 		super(blockID, material);
 	}
 
 	public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
-		if(this.blockMaterial == Material.iron) {
-			return true;
-		} else {
+		if (this.blockMaterial != Material.iron) {
 			int var6 = world.getBlockMetadata(x, y, z);
-			if((var6 & 8) != 0) {
-				if(world.getBlockId(x, y - 1, z) == this.blockID) {
+			if ((var6 & 8) != 0) {
+				if (world.getBlockId(x, y - 1, z) == this.blockID) {
 					this.blockActivated(world, x, y - 1, z, player);
 				}
-
-				return true;
 			} else {
-				if(world.getBlockId(x, y + 1, z) == this.blockID) {
+				if (world.getBlockId(x, y + 1, z) == this.blockID) {
 					world.setBlockMetadataWithNotify(x, y + 1, z, (var6 ^ 4) + 8);
 				}
 
 				world.setBlockMetadataWithNotify(x, y, z, var6 ^ 4);
 				world.markBlocksDirty(x, y - 1, z, x, y, z);
 				world.playEvent(player, 2137, x, y, z, 1);
-				return true;
 			}
 		}
+		return true;
 	}
 
 	public void onPoweredBlockChange(World var1, int var2, int var3, int var4, boolean var5) {
@@ -53,5 +51,10 @@ public class BlockYanoDoor extends BlockDoor {
 				var1.playEvent(null, 2137, var2, var3, var4, 1);
 			}
 		}
+	}
+
+	@Override
+	public int idDropped(int meta, Random random) {
+		return this.blockID;
 	}
 }

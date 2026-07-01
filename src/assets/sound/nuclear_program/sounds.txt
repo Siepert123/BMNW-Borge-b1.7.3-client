@@ -16,6 +16,8 @@ step/metalStep3.ogg
 step/metalStep4.ogg
 step/pipe.ogg
 
+weapon/explosionLarge.ogg
+weapon/explosionNuclear.ogg
 weapon/howitzer1.ogg
 weapon/howitzer2.ogg
 weapon/howitzer3.ogg

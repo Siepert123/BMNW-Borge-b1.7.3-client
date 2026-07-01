@@ -2,17 +2,22 @@ package dev.siepert.nuclearprogram.init;
 
 import dev.siepert.nuclearprogram.Nothing;
 import dev.siepert.nuclearprogram.NuclearProgram;
+import dev.siepert.nuclearprogram.weapon.NukeTypes;
+import dev.siepert.nuclearprogram.weapon.WorldActiveExplosions;
 import dev.siepert.nuclearprogram.world.NuclearProgramWorldAccess;
+import dev.siepert.nuclearprogram.world.entity.EntityExplosionHelper;
 import dev.siepert.nuclearprogram.world.entity.EntityHowitzerShell;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityZombie;
 import net.minecraft.src.World;
+import net.minecraftborge.loader.event.Event;
 import net.minecraftborge.loader.event.EventBusSubscriber;
 import net.minecraftborge.loader.event.EventHandler;
 import net.minecraftborge.loader.event.entity.EntityDropLootEvent;
 import net.minecraftborge.loader.event.misc.ChatCommandEvent;
 import net.minecraftborge.loader.event.world.ChangeWorldEvent;
+import net.minecraftborge.loader.event.world.WorldTickEvent;
 
 @EventBusSubscriber(NuclearProgram.MODID)
 public class EventHandlers {
@@ -62,9 +67,9 @@ public class EventHandlers {
 				world.playEvent(sender, eventID, x, y, z, data);
 				return;
 			}
-			if (cmd.startsWith("/goon")) {
+			if (cmd.startsWith("/goon ")) {
 				event.setCanceled(true);
-				String[] params = cmd.substring("/goon".length()).trim().split(" ");
+				String[] params = cmd.substring("/goon ".length()).trim().split(" ");
 				if (params.length < 3) {
 					event.sendStatus("Invalid 'xyz' arguments");
 					return;
@@ -106,6 +111,12 @@ public class EventHandlers {
 
 				return;
 			}
+			if (cmd.startsWith("/goon2")) {
+				event.setCanceled(true);
+				EntityExplosionHelper entity = new EntityExplosionHelper(world, sender.posX, sender.posY, sender.posZ, NukeTypes.CHARGE);
+				world.entityJoinedWorld(entity);
+				return;
+			}
 			Nothing.none();
 		} catch (Exception e) {
 			event.sendStatus("Exception handling command " + event.getCommand() + " (handler: " + NuclearProgram.MODID + "):");
@@ -118,6 +129,23 @@ public class EventHandlers {
 		Entity entity = event.getEntity();
 		if (entity.getClass() == EntityZombie.class) {
 			entity.dropItem(ItemInit.potato.shiftedIndex, 1);
+		}
+	}
+
+	@EventHandler
+	public static void changeWorld(ChangeWorldEvent event) {
+		if (event.getWorld() == null) {
+			WorldActiveExplosions.cache = null;
+		} else {
+			WorldActiveExplosions.cache = WorldActiveExplosions.get(event.getWorld());
+			WorldActiveExplosions.cache.setWorld(event.getWorld());
+		}
+	}
+
+	@EventHandler
+	public static void tickWorld(WorldTickEvent event) {
+		if (event.getPhase() == Event.Phase.POST) {
+			WorldActiveExplosions.tick();
 		}
 	}
 }

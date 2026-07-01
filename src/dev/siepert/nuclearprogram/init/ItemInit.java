@@ -2,6 +2,7 @@ package dev.siepert.nuclearprogram.init;
 
 import dev.siepert.nuclearprogram.NuclearProgram;
 import dev.siepert.nuclearprogram.world.item.ItemConsumableSeeds;
+import dev.siepert.nuclearprogram.world.item.ItemDetonator;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemFood;
 import net.minecraftborge.loader.event.register.IdAllocationEvent;
@@ -31,6 +32,9 @@ public class ItemInit {
 
 	public static Item valve;
 
+	public static Item screwdriver;
+	public static ItemDetonator detonator;
+
 	public static void register(IdAllocationEvent<Item> event) {
 		Helper helper = new Helper(NuclearProgram.MODID, event);
 
@@ -56,6 +60,9 @@ public class ItemInit {
 				.setMaxStackSize(64));
 
 		valve = helper.register("valve");
+
+		screwdriver = helper.register("screwdriver");
+		detonator = helper.register("detonator", ItemDetonator::new);
 	}
 
 	@SuppressWarnings("unchecked")

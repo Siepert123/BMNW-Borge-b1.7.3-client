@@ -1,0 +1,73 @@
+package dev.siepert.nuclearprogram.weapon;
+
+import net.minecraft.src.MapDataBase;
+import net.minecraft.src.NBTTagCompound;
+import net.minecraft.src.NBTTagList;
+import net.minecraft.src.World;
+
+import java.util.ArrayList;
+
+public class WorldActiveExplosions extends MapDataBase {
+	public WorldActiveExplosions(String key) {
+		super(key);
+	}
+
+	public static WorldActiveExplosions get(World world) {
+		WorldActiveExplosions data = (WorldActiveExplosions) world.loadMapData(WorldActiveExplosions.class, "WorldActiveExplosions");
+		if (data == null) {
+			System.out.println("Data is null");
+			data = new WorldActiveExplosions("WorldActiveExplosions");
+			world.setMapData("WorldActiveExplosions", data);
+		}
+		return data;
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		this.explosions.clear();
+
+		NBTTagList list = nbt.getTagList("Explosions");
+
+		for (int i = 0; i < list.tagCount(); i++) {
+			this.explosions.add(new PlagiarizedExplosionHandlerBatched((NBTTagCompound) list.tagAt(i)));
+		}
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		NBTTagList list = new NBTTagList(this.explosions.size());
+
+		for (PlagiarizedExplosionHandlerBatched ex : this.explosions) {
+			NBTTagCompound tag = new NBTTagCompound();
+			ex.writeNBT(tag);
+			list.setTag(tag);
+		}
+
+		nbt.setTag("Explosions", list);
+	}
+
+	private final ArrayList<PlagiarizedExplosionHandlerBatched> explosions = new ArrayList<>();
+
+	public static WorldActiveExplosions cache = null;
+	public static void tick() {
+		if (cache != null) cache.tick0();
+	}
+	public void tick0() {
+		for (PlagiarizedExplosionHandlerBatched batched : this.explosions) {
+			batched.cacheChunksTick(20);
+			batched.destructionTick(20);
+		}
+
+		this.explosions.removeIf(PlagiarizedExplosionHandlerBatched::isComplete);
+	}
+
+	public void setWorld(World world) {
+		for (PlagiarizedExplosionHandlerBatched batched : this.explosions) {
+			batched.worldObj = world;
+		}
+	}
+	public void add(PlagiarizedExplosionHandlerBatched batched) {
+		this.explosions.add(batched);
+		this.setDirty(true);
+	}
+}
