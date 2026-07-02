@@ -29,7 +29,7 @@ public class WorldActiveExplosions extends MapDataBase {
 		NBTTagList list = nbt.getTagList("Explosions");
 
 		for (int i = 0; i < list.tagCount(); i++) {
-			this.explosions.add(new PlagiarizedExplosionHandlerBatched((NBTTagCompound) list.tagAt(i)));
+			this.explosions.add(new BackendExplosionHandler((NBTTagCompound) list.tagAt(i)));
 		}
 	}
 
@@ -37,7 +37,7 @@ public class WorldActiveExplosions extends MapDataBase {
 	public void writeToNBT(NBTTagCompound nbt) {
 		NBTTagList list = new NBTTagList(this.explosions.size());
 
-		for (PlagiarizedExplosionHandlerBatched ex : this.explosions) {
+		for (BackendExplosionHandler ex : this.explosions) {
 			NBTTagCompound tag = new NBTTagCompound();
 			ex.writeNBT(tag);
 			list.setTag(tag);
@@ -46,27 +46,27 @@ public class WorldActiveExplosions extends MapDataBase {
 		nbt.setTag("Explosions", list);
 	}
 
-	private final ArrayList<PlagiarizedExplosionHandlerBatched> explosions = new ArrayList<>();
+	private final ArrayList<BackendExplosionHandler> explosions = new ArrayList<>();
 
 	public static WorldActiveExplosions cache = null;
 	public static void tick() {
 		if (cache != null) cache.tick0();
 	}
 	public void tick0() {
-		for (PlagiarizedExplosionHandlerBatched batched : this.explosions) {
+		for (BackendExplosionHandler batched : this.explosions) {
 			batched.cacheChunksTick(20);
 			batched.destructionTick(20);
 		}
 
-		this.explosions.removeIf(PlagiarizedExplosionHandlerBatched::isComplete);
+		this.explosions.removeIf(BackendExplosionHandler::isComplete);
 	}
 
 	public void setWorld(World world) {
-		for (PlagiarizedExplosionHandlerBatched batched : this.explosions) {
+		for (BackendExplosionHandler batched : this.explosions) {
 			batched.worldObj = world;
 		}
 	}
-	public void add(PlagiarizedExplosionHandlerBatched batched) {
+	public void add(BackendExplosionHandler batched) {
 		this.explosions.add(batched);
 		this.setDirty(true);
 	}

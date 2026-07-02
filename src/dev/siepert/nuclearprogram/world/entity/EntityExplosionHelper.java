@@ -219,7 +219,7 @@ public class EntityExplosionHelper extends Entity implements ExploderParent {
 		if (!this.explosionStarted) {
 			System.out.println("Starting explosion");
 			WorldActiveExplosions.get(this.worldObj).add(
-					new PlagiarizedExplosionHandlerBatched(
+					new BackendExplosionHandler(
 							this.worldObj,
 							(int) this.posX,
 							(int) this.posY,
@@ -416,6 +416,117 @@ public class EntityExplosionHelper extends Entity implements ExploderParent {
 				Material material;
 				for (x = 0; x < 16; x++) {
 					for (z = 0; z < 16; z++) {
+						for (y = this.evaporationMax - 1; y >= this.evaporationMin; y--) {
+							material = this.worldObj.getBlockMaterial(x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4));
+							if (material.isReplaceable()) {
+								if (checkWater(this.worldObj, x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4))) {
+									this.worldObj.setBlockWithNotify(x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4), waterID);
+								}
+							}
+						}
+					}
+				}
+				this.worldObj.editingBlocks = false;
+			}
+			return;
+		}
+		if (!this.waterRefilled2) {
+			if (this.orderedChunks == null) {
+				System.out.println("Starting refill 1");
+				int c = (this.nukeType.getBlastRadius() + 15) >> 4;
+				this.affectedMinCX = this.chunkCoordX - c;
+				this.affectedMaxCX = this.chunkCoordX + c;
+				this.affectedMinCZ = this.chunkCoordZ - c;
+				this.affectedMaxCZ = this.chunkCoordZ + c;
+				this.orderedChunks = new ArrayList<>();
+				rangeClosed(new ChunkCoordIntPair(this.affectedMinCX, this.affectedMinCZ), new ChunkCoordIntPair(this.affectedMaxCX, this.affectedMaxCZ))
+						.forEach(this.orderedChunks::add);
+				return;
+			}
+			if (this.orderedChunks.isEmpty()) {
+				this.orderedChunks = null;
+				this.waterRefilled2 = true;
+			} else {
+				this.worldObj.editingBlocks = true;
+				ChunkCoordIntPair cp = this.orderedChunks.remove(0);
+				int x, y, z;
+				Material material;
+				for (x = 15; x >= 0; x--) {
+					for (z = 0; z < 16; z++) {
+						for (y = this.evaporationMax - 1; y >= this.evaporationMin; y--) {
+							material = this.worldObj.getBlockMaterial(x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4));
+							if (material.isReplaceable()) {
+								if (checkWater(this.worldObj, x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4))) {
+									this.worldObj.setBlockWithNotify(x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4), waterID);
+								}
+							}
+						}
+					}
+				}
+				this.worldObj.editingBlocks = false;
+			}
+			return;
+		}
+		if (!this.waterRefilled3) {
+			if (this.orderedChunks == null) {
+				System.out.println("Starting refill 1");
+				int c = (this.nukeType.getBlastRadius() + 15) >> 4;
+				this.affectedMinCX = this.chunkCoordX - c;
+				this.affectedMaxCX = this.chunkCoordX + c;
+				this.affectedMinCZ = this.chunkCoordZ - c;
+				this.affectedMaxCZ = this.chunkCoordZ + c;
+				this.orderedChunks = new ArrayList<>();
+				rangeClosed(new ChunkCoordIntPair(this.affectedMinCX, this.affectedMinCZ), new ChunkCoordIntPair(this.affectedMaxCX, this.affectedMaxCZ))
+						.forEach(this.orderedChunks::add);
+				return;
+			}
+			if (this.orderedChunks.isEmpty()) {
+				this.orderedChunks = null;
+				this.waterRefilled3 = true;
+			} else {
+				this.worldObj.editingBlocks = true;
+				ChunkCoordIntPair cp = this.orderedChunks.remove(0);
+				int x, y, z;
+				Material material;
+				for (x = 0; x < 16; x++) {
+					for (z = 15; z >= 0; z--) {
+						for (y = this.evaporationMax - 1; y >= this.evaporationMin; y--) {
+							material = this.worldObj.getBlockMaterial(x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4));
+							if (material.isReplaceable()) {
+								if (checkWater(this.worldObj, x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4))) {
+									this.worldObj.setBlockWithNotify(x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4), waterID);
+								}
+							}
+						}
+					}
+				}
+				this.worldObj.editingBlocks = false;
+			}
+			return;
+		}
+		if (!this.waterRefilled4) {
+			if (this.orderedChunks == null) {
+				System.out.println("Starting refill 1");
+				int c = (this.nukeType.getBlastRadius() + 15) >> 4;
+				this.affectedMinCX = this.chunkCoordX - c;
+				this.affectedMaxCX = this.chunkCoordX + c;
+				this.affectedMinCZ = this.chunkCoordZ - c;
+				this.affectedMaxCZ = this.chunkCoordZ + c;
+				this.orderedChunks = new ArrayList<>();
+				rangeClosed(new ChunkCoordIntPair(this.affectedMinCX, this.affectedMinCZ), new ChunkCoordIntPair(this.affectedMaxCX, this.affectedMaxCZ))
+						.forEach(this.orderedChunks::add);
+				return;
+			}
+			if (this.orderedChunks.isEmpty()) {
+				this.orderedChunks = null;
+				this.waterRefilled4 = true;
+			} else {
+				this.worldObj.editingBlocks = true;
+				ChunkCoordIntPair cp = this.orderedChunks.remove(0);
+				int x, y, z;
+				Material material;
+				for (x = 15; x >= 0; x--) {
+					for (z = 15; z >= 0; z--) {
 						for (y = this.evaporationMax - 1; y >= this.evaporationMin; y--) {
 							material = this.worldObj.getBlockMaterial(x + (cp.chunkXPos << 4), y, z + (cp.chunkZPos << 4));
 							if (material.isReplaceable()) {

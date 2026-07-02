@@ -6,7 +6,8 @@ import net.minecraft.src.*;
 
 import java.util.*;
 
-public class PlagiarizedExplosionHandlerBatched {
+// property of bob
+public class BackendExplosionHandler {
 	public HashMap<ChunkCoordIntPair, List<Vec3F>> perChunk = new HashMap<>();
 	public List<ChunkCoordIntPair> orderedChunks = new ArrayList<>();
 	private final CoordComparator comparator = new CoordComparator();
@@ -73,7 +74,7 @@ public class PlagiarizedExplosionHandlerBatched {
 		nbt.setBoolean("collectionComplete", this.collectionComplete);
 	}
 
-	public PlagiarizedExplosionHandlerBatched(NBTTagCompound nbt) {
+	public BackendExplosionHandler(NBTTagCompound nbt) {
 		if (nbt.hasKey("PerChunk", NBTBase.LIST)) {
 			NBTTagList list = nbt.getTagList("PerChunk");
 
@@ -119,7 +120,7 @@ public class PlagiarizedExplosionHandlerBatched {
 		this.collectionComplete = nbt.getBoolean("collectionComplete");
 	}
 
-	public PlagiarizedExplosionHandlerBatched(World worldObj, int x, int y, int z, float strength, int speed, int length) {
+	public BackendExplosionHandler(World worldObj, int x, int y, int z, float strength, int speed, int length) {
 		this.worldObj = worldObj;
 		this.posX = x;
 		this.posY = y;
@@ -232,8 +233,8 @@ public class PlagiarizedExplosionHandlerBatched {
 	public class CoordComparator implements Comparator<ChunkCoordIntPair> {
 		@Override
 		public int compare(ChunkCoordIntPair o1, ChunkCoordIntPair o2) {
-			int x = PlagiarizedExplosionHandlerBatched.this.posX >> 4;
-			int z = PlagiarizedExplosionHandlerBatched.this.posZ >> 4;
+			int x = BackendExplosionHandler.this.posX >> 4;
+			int z = BackendExplosionHandler.this.posZ >> 4;
 
 			int d1 = Math.abs((x - o1.chunkXPos)) + Math.abs((z - o1.chunkZPos));
 			int d2 = Math.abs((x - o2.chunkXPos)) + Math.abs((z - o2.chunkZPos));
